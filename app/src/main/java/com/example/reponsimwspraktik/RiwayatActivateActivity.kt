@@ -2,17 +2,11 @@ package com.example.reponsimwspraktik
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.ImageView
-import android.widget.Toast
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.reponsimwspraktik.adapter.AdapterMember
 import com.example.reponsimwspraktik.adapter.AdapterRiwayatActivate
 import com.example.reponsimwspraktik.data.DataActivate
-import com.example.reponsimwspraktik.data.DataMember
-import com.example.reponsimwspraktik.RecyclerRiwayatClickListener
 
 class RiwayatActivateActivity : AppCompatActivity() {
     private lateinit var btnBack : ImageView
