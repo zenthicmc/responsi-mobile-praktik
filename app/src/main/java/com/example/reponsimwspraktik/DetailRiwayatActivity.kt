@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reponsimwspraktik.adapter.AdapterDetailRiwayat
@@ -49,10 +50,9 @@ class DetailRiwayatActivity : AppCompatActivity() {
         txtInvoice.text = invoice
         txtDate.text = date
 
-
         val image = arrayOf(
             R.drawable.person10,
-            R.drawable.person11,
+            R.drawable.person7,
             R.drawable.clothes1,
         )
 
@@ -94,6 +94,5 @@ class DetailRiwayatActivity : AppCompatActivity() {
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = AdapterDetailRiwayat(this, dataDetail)
         }
-
     }
 }

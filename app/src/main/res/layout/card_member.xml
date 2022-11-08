@@ -20,7 +20,7 @@
            android:layout_width="match_parent"
            android:layout_height="match_parent"
            android:scaleType="centerCrop"
-           android:src="@drawable/person11"/>
+           android:src="@drawable/person7"/>
 
    </androidx.cardview.widget.CardView>
 
@@ -70,6 +70,7 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/btnMinus"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:text="-"
@@ -77,6 +78,7 @@
             android:background="@drawable/btn_quantity"/>
 
         <TextView
+            android:id="@+id/txtCount"
             android:layout_width="45dp"
             android:layout_height="20dp"
             android:textSize="12sp"
@@ -87,6 +89,7 @@
             android:text="1 " />
 
         <Button
+            android:id="@+id/btnPlus"
             android:layout_width="20dp"
             android:layout_height="20dp"
             android:text="+"

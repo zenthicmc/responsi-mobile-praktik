@@ -26,7 +26,7 @@ class PromoFragment : Fragment() {
 
         val image = arrayOf(
             R.drawable.person10,
-            R.drawable.person11,
+            R.drawable.person7,
             R.drawable.clothes1,
             R.drawable.clothes2,
             R.drawable.clothes3,

@@ -14,6 +14,7 @@ import com.example.reponsimwspraktik.*
 class SettingFragment : Fragment() {
     private lateinit var btnEditProfile: RelativeLayout
     private lateinit var btnAbout: RelativeLayout
+    private lateinit var btnDetail: RelativeLayout
     private lateinit var btnRiwayat: RelativeLayout
     private lateinit var btnLogout: RelativeLayout
     private lateinit var txtName: TextView
@@ -36,6 +37,7 @@ class SettingFragment : Fragment() {
         btnEditProfile = view.findViewById(R.id.btnEditProfile)
         btnAbout = view.findViewById(R.id.btnAbout)
         btnRiwayat = view.findViewById(R.id.btnRiwayat)
+        btnDetail = view.findViewById(R.id.btnDetail)
         btnLogout = view.findViewById(R.id.btnLogout)
         val activity = getActivity()
 
@@ -51,6 +53,11 @@ class SettingFragment : Fragment() {
 
         btnRiwayat.setOnClickListener {
             val intent = Intent(activity, RiwayatActivateActivity::class.java)
+            startActivity(intent)
+        }
+
+        btnDetail.setOnClickListener {
+            val intent = Intent(activity, DetailRiwayatActivity::class.java)
             startActivity(intent)
         }
 
