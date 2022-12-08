@@ -75,8 +75,8 @@
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Nama"
+            android:layout_height="match_parent"
+            android:text="Password"
             android:textColor="@color/black"
             android:textStyle="bold" />
 
@@ -92,13 +92,14 @@
 
 
     <EditText
-        android:id="@+id/editNama"
+        android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:background="@drawable/bg_edit_text"
         android:paddingLeft="10dp"
         android:textSize="14sp"
         android:layout_marginTop="5dp"
+        android:inputType="textPassword"
         android:hint="Masukkan password"/>
 
 

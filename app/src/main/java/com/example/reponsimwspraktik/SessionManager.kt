@@ -11,13 +11,13 @@ class SessionManager(var context: Context?) {
     var pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
     var editor: SharedPreferences.Editor? = pref?.edit()
 
-    fun setLoggin(isLogin: Boolean) {
+    fun setLogin(isLogin: Boolean) {
         editor?.putBoolean(IS_LOGIN, isLogin)
         editor?.commit()
     }
 
-    fun setName(name: String?) {
-        editor?.putString("name", name)
+    fun setEmail(email: String?) {
+        editor?.putString("email", email)
         editor?.commit()
     }
 
