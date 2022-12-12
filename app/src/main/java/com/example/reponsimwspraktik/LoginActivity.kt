@@ -88,7 +88,12 @@ class LoginActivity : AppCompatActivity() {
                             if(response.getString("success").equals("true")){
                                 Toast.makeText(this@LoginActivity, "Login Berhasil", Toast.LENGTH_SHORT).show()
                                 sessionManager.setLogin(true)
-                                sessionManager.setEmail(email)
+                                sessionManager.setToken(response.getString("token"))
+
+                                Log.d("token mu:", sessionManager.getToken().toString())
+
+                                val intent = Intent(this@LoginActivity, MainActivity::class.java)
+                                startActivity(intent)
                             }
                         } catch(e: JSONException) {
                             Log.d("onError", e.toString())

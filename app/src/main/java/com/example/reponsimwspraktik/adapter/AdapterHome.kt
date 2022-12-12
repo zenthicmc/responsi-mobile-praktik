@@ -1,5 +1,6 @@
 package com.example.reponsimwspraktik.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.reponsimwspraktik.R
 import com.example.reponsimwspraktik.data.DataHome
 import com.example.reponsimwspraktik.data.DataMember
+import com.squareup.picasso.Picasso
 
 class AdapterHome(val homeList: ArrayList<DataHome>): RecyclerView.Adapter<AdapterHome.MyViewHolder>() {
 
@@ -19,8 +21,13 @@ class AdapterHome(val homeList: ArrayList<DataHome>): RecyclerView.Adapter<Adapt
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = homeList[position]
+        val getId = currentItem.id
+        val getImage = currentItem.image
 
-        holder.image.setImageResource(currentItem.image)
+        // load image
+        Picasso.get()
+            .load(getImage)
+            .into(holder.image)
     }
 
     override fun getItemCount(): Int {

@@ -62,12 +62,13 @@ class RegisterActivity : AppCompatActivity() {
             }
 
             else {
+                val number = if(checkBox.isChecked) 1 else 0
                 val jsonObject = JSONObject()
                 try {
                     jsonObject.put("name", editNama.text.toString().trim())
                     jsonObject.put("email", editEmail.text.toString().trim())
                     jsonObject.put("password", editPassword.text.toString().trim())
-                    jsonObject.put("terms", 1)
+                    jsonObject.put("terms", number)
                 } catch (e: JSONException) {
                     e.printStackTrace()
                 }
@@ -82,7 +83,9 @@ class RegisterActivity : AppCompatActivity() {
                             Log.d("response", response.toString())
                             try {
                                 if(response.getString("success").equals("true")){
-                                    Toast.makeText(this@RegisterActivity, "Register Berhasil", Toast.LENGTH_SHORT).show()
+                                    Toast.makeText(this@RegisterActivity, response.getString("message"), Toast.LENGTH_SHORT).show()
+                                    val intent = Intent(this@RegisterActivity, LoginActivity::class.java)
+                                    startActivity(intent)
                                 }
                             } catch(e: JSONException) {
                                 Log.d("onError", e.toString())
