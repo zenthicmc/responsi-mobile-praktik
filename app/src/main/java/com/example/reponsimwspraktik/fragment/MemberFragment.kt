@@ -77,7 +77,7 @@ class MemberFragment : Fragment() {
             )
 
             recyclerView.layoutManager = GridLayoutManager(context, 2)
-            recyclerView.adapter = AdapterMember(dataMember)
+            recyclerView.adapter = activity?.let { AdapterMember(it, dataMember) }
         }
         return view
     }

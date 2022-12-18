@@ -1,5 +1,6 @@
 package com.example.reponsimwspraktik.adapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.reponsimwspraktik.R
 import com.example.reponsimwspraktik.data.DataMember
 
-class AdapterMember(val memberList: ArrayList<DataMember>): RecyclerView.Adapter<AdapterMember.MyViewHolder>() {
+class AdapterMember(val context: Context, val memberList: ArrayList<DataMember>): RecyclerView.Adapter<AdapterMember.MyViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val itemView = LayoutInflater.from(parent.context).inflate(R.layout.card_member, parent, false)

@@ -22,4 +22,14 @@
 
     </androidx.cardview.widget.CardView>
 
+    <Button
+        android:id="@+id/btnHapus"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/primary"
+        android:text="Hapus"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"/>
+
 </LinearLayout>

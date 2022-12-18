@@ -68,7 +68,7 @@ class HomeFragment : Fragment() {
                                 )
 
                                 recyclerView.layoutManager = LinearLayoutManager(activity)
-                                recyclerView.adapter = AdapterHome(dataHome)
+                                recyclerView.adapter = activity?.let { AdapterHome(it, dataHome) }
                             }
                         }
                     } catch(e: JSONException) {

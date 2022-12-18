@@ -77,7 +77,7 @@ class PromoFragment : Fragment() {
             )
 
             recyclerView.layoutManager = LinearLayoutManager(activity)
-            recyclerView.adapter = AdapterPromo(dataPromo)
+            recyclerView.adapter = activity?.let { AdapterPromo(it, dataPromo) }
         }
         return view
     }
