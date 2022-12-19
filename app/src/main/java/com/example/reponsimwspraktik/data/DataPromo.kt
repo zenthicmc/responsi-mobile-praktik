@@ -1,9 +1,9 @@
 package com.example.reponsimwspraktik.data
 
 data class DataPromo(
-    val image: Int,
+    val image: String,
     val title: String,
     val category: String,
-    val price: String,
-    val discount: String,
+    val price: Int,
+    val discount: Int,
 )

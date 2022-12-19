@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.reponsimwspraktik.R
 import com.example.reponsimwspraktik.data.DataPromo
+import com.squareup.picasso.Picasso
 
 class AdapterPromo(val context: Context, val promoList: ArrayList<DataPromo>): RecyclerView.Adapter<AdapterPromo.MyViewHolder>() {
 
@@ -20,11 +21,15 @@ class AdapterPromo(val context: Context, val promoList: ArrayList<DataPromo>): R
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         val currentItem = promoList[position]
 
-        holder.image.setImageResource(currentItem.image)
+        // load image
+        Picasso.get()
+            .load(currentItem.image)
+            .into(holder.image)
+
         holder.title.text = currentItem.title
         holder.category.text = currentItem.category
-        holder.price.text = currentItem.price
-        holder.discount.text = currentItem.discount
+        holder.price.text = "Rp " + currentItem.price.toString()
+        holder.discount.text = "Rp " + currentItem.discount.toString()
         holder.discount.setPaintFlags(holder.discount.getPaintFlags() or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG)
     }
 

@@ -1,15 +1,24 @@
 package com.example.reponsimwspraktik.fragment
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.reponsimwspraktik.R
+import com.example.reponsimwspraktik.adapter.AdapterHome
 import com.example.reponsimwspraktik.adapter.AdapterPromo
+import com.example.reponsimwspraktik.data.DataHome
 import com.example.reponsimwspraktik.data.DataPromo
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class PromoFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
@@ -24,61 +33,49 @@ class PromoFragment : Fragment() {
         recyclerView = view.findViewById(R.id.recyclerPromo)
         dataPromo = ArrayList<DataPromo>()
 
-        val image = arrayOf(
-            R.drawable.person10,
-            R.drawable.person7,
-            R.drawable.clothes1,
-            R.drawable.clothes2,
-            R.drawable.clothes3,
-        )
+        getPromo()
 
-        val title = arrayOf(
-            "White Dress Size M",
-            "Red Dress Size M",
-            "Blue Hoodie Size L",
-            "Black Tuxedo Size L",
-            "Red Shirt Size L",
-        )
-
-        val category = arrayOf(
-            "pieces",
-            "pieces",
-            "pieces",
-            "pieces",
-            "pieces",
-        )
-
-        val price = arrayOf(
-            "Rp. 100.000",
-            "Rp. 200.000",
-            "Rp. 300.000",
-            "Rp. 400.000",
-            "Rp. 500.000",
-        )
-
-        val discount = arrayOf(
-            "Rp. 50.000",
-            "Rp. 100.000",
-            "Rp. 150.000",
-            "Rp. 200.000",
-            "Rp. 250.000",
-        )
-
-
-        for(i in title.indices){
-            dataPromo.add(
-                DataPromo(
-                    image[i],
-                    title[i],
-                    category[i],
-                    price[i],
-                    discount[i]
-                )
-            )
-
-            recyclerView.layoutManager = LinearLayoutManager(activity)
-            recyclerView.adapter = activity?.let { AdapterPromo(it, dataPromo) }
-        }
         return view
+    }
+
+    private fun getPromo() {
+        AndroidNetworking.get("https://grocery-api.tonsu.site/products/promo")
+            .setTag("promo")
+            .setPriority(com.androidnetworking.common.Priority.LOW)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    Log.d("response", response.toString())
+                    try {
+                        if(response.getString("success").equals("true")) {
+                            val getJsonArray: JSONArray = response.getJSONArray("data")
+                            for(i in 0 until getJsonArray.length()) {
+                                val item = getJsonArray.getJSONObject(i)
+                                val image = item.getString("image")
+
+                                Log.d("item", item.getString("image"))
+                                dataPromo.add(
+                                    DataPromo(
+                                        image,
+                                        item.getString("product_name"),
+                                        item.getString("unit"),
+                                        item.getInt("original_price"),
+                                        item.getInt("discount_price")
+                                    )
+                                )
+
+                                recyclerView.layoutManager = LinearLayoutManager(activity)
+                                recyclerView.adapter = activity?.let { AdapterPromo(it, dataPromo) }
+                            }
+                        }
+                    } catch(e: JSONException) {
+                        Log.d("onError", e.toString())
+                    }
+                }
+
+                override fun onError(error: ANError) {
+                    Log.d("onError", error.toString())
+                }
+            })
     }
 }
