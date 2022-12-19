@@ -18,6 +18,7 @@ import com.example.reponsimwspraktik.adapter.AdapterMember
 import com.example.reponsimwspraktik.adapter.AdapterPromo
 import com.example.reponsimwspraktik.data.DataMember
 import com.example.reponsimwspraktik.data.DataPromo
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -26,6 +27,7 @@ class MemberFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataMember : ArrayList<DataMember>
     private lateinit var sessionManager : SessionManager
+    private lateinit var shimmerPromo: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -35,6 +37,11 @@ class MemberFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerMember)
         dataMember = ArrayList<DataMember>()
+        shimmerPromo = view.findViewById(R.id.shimmerMember)
+
+        // start shimmer
+        shimmerPromo.visibility = View.VISIBLE
+        shimmerPromo.startShimmer()
 
         getMember()
 
@@ -74,6 +81,11 @@ class MemberFragment : Fragment() {
                                 recyclerView.adapter = activity?.let { AdapterMember(it, dataMember) }
                             }
                         }
+
+                        // stop shimmer
+                        shimmerPromo.visibility = View.GONE
+                        shimmerPromo.stopShimmer()
+
                     } catch(e: JSONException) {
                         Log.d("onError", e.toString())
                     }

@@ -20,6 +20,7 @@ import com.example.reponsimwspraktik.R
 import com.example.reponsimwspraktik.SessionManager
 import com.example.reponsimwspraktik.adapter.AdapterHome
 import com.example.reponsimwspraktik.data.DataHome
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.google.gson.JsonArray
 import org.json.JSONArray
 import org.json.JSONException
@@ -30,6 +31,7 @@ class HomeFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataHome : ArrayList<DataHome>
     private lateinit var sessionManager : SessionManager
+    private lateinit var shimmerPromo: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +40,11 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
         recyclerView = view.findViewById(R.id.recyclerHome)
         dataHome = ArrayList<DataHome>()
+        shimmerPromo = view.findViewById(R.id.shimmerHome)
+
+        // start shimmer
+        shimmerPromo.visibility = View.VISIBLE
+        shimmerPromo.startShimmer()
 
         getKatalog()
 
@@ -66,6 +73,10 @@ class HomeFragment : Fragment() {
                                         image
                                     )
                                 )
+
+                                // stop shimmer
+                                shimmerPromo.stopShimmer()
+                                shimmerPromo.visibility = View.GONE
 
                                 recyclerView.layoutManager = LinearLayoutManager(activity)
                                 recyclerView.adapter = activity?.let { AdapterHome(it, dataHome) }

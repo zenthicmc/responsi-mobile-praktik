@@ -16,6 +16,7 @@ import com.example.reponsimwspraktik.adapter.AdapterHome
 import com.example.reponsimwspraktik.adapter.AdapterPromo
 import com.example.reponsimwspraktik.data.DataHome
 import com.example.reponsimwspraktik.data.DataPromo
+import com.facebook.shimmer.ShimmerFrameLayout
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
@@ -23,6 +24,7 @@ import org.json.JSONObject
 class PromoFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var dataPromo : ArrayList<DataPromo>
+    private lateinit var shimmerPromo: ShimmerFrameLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,6 +34,11 @@ class PromoFragment : Fragment() {
 
         recyclerView = view.findViewById(R.id.recyclerPromo)
         dataPromo = ArrayList<DataPromo>()
+        shimmerPromo = view.findViewById(R.id.shimmerPromo)
+
+        // start shimmer
+        shimmerPromo.visibility = View.VISIBLE
+        shimmerPromo.startShimmer()
 
         getPromo()
 
@@ -64,6 +71,10 @@ class PromoFragment : Fragment() {
                                         item.getInt("member_price")
                                     )
                                 )
+
+                                // stop shimmer
+                                shimmerPromo.stopShimmer()
+                                shimmerPromo.visibility = View.GONE
 
                                 recyclerView.layoutManager = LinearLayoutManager(activity)
                                 recyclerView.adapter = activity?.let { AdapterPromo(it, dataPromo) }
