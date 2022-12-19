@@ -56,11 +56,12 @@ class PromoFragment : Fragment() {
                                 Log.d("item", item.getString("image"))
                                 dataPromo.add(
                                     DataPromo(
+                                        item.getInt("id"),
                                         image,
                                         item.getString("product_name"),
                                         item.getString("unit"),
                                         item.getInt("original_price"),
-                                        item.getInt("discount_price")
+                                        item.getInt("member_price")
                                     )
                                 )
 

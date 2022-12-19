@@ -96,6 +96,14 @@
             android:layout_marginLeft="5dp"
             android:background="@drawable/btn_quantity"/>
 
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginLeft="5dp"
+            android:backgroundTint="@color/red"
+            android:background="@drawable/ic_delete"/>
+
     </LinearLayout>
 </LinearLayout>
 

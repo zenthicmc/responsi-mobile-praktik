@@ -1,9 +1,10 @@
 package com.example.reponsimwspraktik.data
 
 data class DataMember(
-    val image: Int,
+    val id: Int,
+    val image: String,
     val title: String,
-    val price: String,
-    val discount: String,
-    val total: String,
+    val price: Int,
+    val discount: Int,
+    val total: Int,
 )
