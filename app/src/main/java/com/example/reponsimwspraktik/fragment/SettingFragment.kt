@@ -3,15 +3,28 @@ package com.example.reponsimwspraktik.fragment
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.androidnetworking.AndroidNetworking
+import com.androidnetworking.error.ANError
+import com.androidnetworking.interfaces.JSONObjectRequestListener
 import com.example.reponsimwspraktik.*
+import com.example.reponsimwspraktik.adapter.AdapterHome
+import com.example.reponsimwspraktik.data.DataHome
+import com.squareup.picasso.Picasso
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
 
 class SettingFragment : Fragment() {
+    private lateinit var photoProfile: ImageView
     private lateinit var btnEditProfile: RelativeLayout
     private lateinit var btnAbout: RelativeLayout
     private lateinit var btnDetail: RelativeLayout
@@ -29,10 +42,6 @@ class SettingFragment : Fragment() {
 
         // Set Name To Current User
         sessionManager = SessionManager(context)
-        name = sessionManager.getName().toString()
-
-        txtName = view?.findViewById(R.id.txtName)!!
-        txtName.text = name
 
         btnEditProfile = view.findViewById(R.id.btnEditProfile)
         btnAbout = view.findViewById(R.id.btnAbout)
@@ -40,6 +49,8 @@ class SettingFragment : Fragment() {
         btnDetail = view.findViewById(R.id.btnDetail)
         btnLogout = view.findViewById(R.id.btnLogout)
         val activity = getActivity()
+
+        getProfile(view)
 
         btnEditProfile.setOnClickListener {
             val intent = Intent(activity, EditProfileActivity::class.java)
@@ -68,5 +79,39 @@ class SettingFragment : Fragment() {
             activity?.finish()
         }
         return view
+    }
+
+    private fun getProfile(view: View) {
+        sessionManager = SessionManager(context)
+        photoProfile = view.findViewById(R.id.photoProfile)
+        txtName = view.findViewById(R.id.txtName)
+
+        AndroidNetworking.get("https://grocery-api.tonsu.site/members")
+            .setTag("members")
+            .addHeaders("token", "Bearer" + " " + sessionManager.getToken())
+            .setPriority(com.androidnetworking.common.Priority.LOW)
+            .build()
+            .getAsJSONObject(object : JSONObjectRequestListener {
+                override fun onResponse(response: JSONObject) {
+                    Log.d("response", response.toString())
+                    try {
+                        if(response.getString("success").equals("true")) {
+                            val getJsonObject: JSONObject = response.getJSONObject("data")
+
+                            Picasso.get()
+                                .load(getJsonObject.getString("photo_profile"))
+                                .into(photoProfile)
+
+                            txtName.text = getJsonObject.getString("name")
+                        }
+                    } catch(e: JSONException) {
+                        Log.d("onError", e.toString())
+                    }
+                }
+
+                override fun onError(error: ANError) {
+                    Log.d("onError", error.toString())
+                }
+            })
     }
 }

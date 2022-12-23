@@ -23,6 +23,7 @@ import com.squareup.picasso.Picasso
 import org.json.JSONArray
 import org.json.JSONException
 import org.json.JSONObject
+import java.text.DecimalFormat
 
 class AdapterPromo(val context: Context, val promoList: ArrayList<DataPromo>): RecyclerView.Adapter<AdapterPromo.MyViewHolder>() {
     private lateinit var sessionManager : SessionManager
@@ -35,6 +36,7 @@ class AdapterPromo(val context: Context, val promoList: ArrayList<DataPromo>): R
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         sessionManager = SessionManager(context)
         val currentItem = promoList[position]
+        val decimalFormat = DecimalFormat("#,###")
 
         // load image
         Picasso.get()
@@ -43,8 +45,8 @@ class AdapterPromo(val context: Context, val promoList: ArrayList<DataPromo>): R
 
         holder.title.text = currentItem.title
         holder.category.text = currentItem.category
-        holder.price.text = "Rp " + currentItem.price.toString()
-        holder.discount.text = "Rp " + currentItem.discount.toString()
+        holder.price.text = "Rp " + decimalFormat.format(currentItem.price).toString()
+        holder.discount.text = "Rp " + decimalFormat.format(currentItem.discount).toString()
         holder.discount.setPaintFlags(holder.discount.getPaintFlags() or android.graphics.Paint.STRIKE_THRU_TEXT_FLAG)
 
         holder.btnAktif.setOnClickListener {
